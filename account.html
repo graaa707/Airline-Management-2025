@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Airline Management 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="account-container">
+        <h1>Login or Register</h1>
+
+        <div class="login-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="login-username">
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="login-password">
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="register-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <div class="input-group">
+                    <label for="register-username">Username:</label>
+                    <input type="text" id="register-username" name="register-username">
+                </div>
+                <div class="input-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="register-password">
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password">
+                    <p id="password-match" style="color: green; display: none;">Passwords match!</p>
+                    <p id="password-mismatch" style="color: red; display: none;">Passwords do not match!</p>
+                </div>
+                <button type="submit" disabled>Register</button>
+            </form>
+        </div>
+
+        <p><a href="index.html">Go back to the main page</a></p>
+    </div>
+
+    <script>
+        // Basic password matching for registration (client-side only)
+        const registerPassword = document.getElementById('register-password');
+        const confirmPassword = document.getElementById('confirm-password');
+        const passwordMatch = document.getElementById('password-match');
+        const passwordMismatch = document.getElementById('password-mismatch');
+        const registerButton = document.querySelector('#register-form button[type="submit"]');
+
+        function checkPassword() {
+            if (registerPassword.value === confirmPassword.value) {
+                passwordMatch.style.display = 'block';
+                passwordMismatch.style.display = 'none';
+                registerButton.disabled = false;
+            } else {
+                passwordMatch.style.display = 'none';
+                passwordMismatch.style.display = 'block';
+                registerButton.disabled = true;
+            }
+        }
+
+        registerPassword.addEventListener('keyup', checkPassword);
+        confirmPassword.addEventListener('keyup', checkPassword);
+    </script>
+</body>
+</html>
