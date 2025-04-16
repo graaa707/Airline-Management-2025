@@ -1,3 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Airline Management 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I",
+        authDomain: "airline-management-2025.firebaseapp.com",
+        projectId: "airline-management-2025",
+        storageBucket: "airline-management-2025.firebasestorage.app",
+        messagingSenderId: "79795767586",
+        appId: "1:79795767586:web:657c354561e587f56bbd7b"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+</head>
+<body>
+    <div class="account-container">
+        <h1>Register your account</h1>
+        <form id="register-form">
+            <div class="input-group">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="register-email" required>
+            </div>
+            <div class="input-group">
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="register-password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <p id="password-match" style="color: green; display: none;">Passwords match!</p>
+                <p id="password-mismatch" style="color: red; display: none;">Passwords do not match!</p>
+            </div>
+            <button type="submit" disabled>Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+        <p><a href="index.html">Go back to the main page</a></p>
+    </div>
+
     <script>
         // Get Firebase auth instance
         const auth = firebase.auth();
@@ -50,3 +100,5 @@
         // Initially disable the register button
         registerButton.disabled = true;
     </script>
+</body>
+</html>
