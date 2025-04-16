@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
     <script>
       const firebaseConfig = {
-        apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I",
+        apiKey: "YOUR_API_KEY",
         authDomain: "airline-management-2025.firebaseapp.com",
         projectId: "airline-management-2025",
         storageBucket: "airline-management-2025.firebasestorage.app",
@@ -95,6 +95,7 @@
 
         passwordInput.addEventListener('keyup', checkPassword);
         confirmPasswordInput.addEventListener('keyup', checkPassword);
+        confirmPasswordInput.addEventListener('blur', checkPassword); // Added blur event listener
         registerForm.addEventListener('submit', registerUser);
 
         // Initially disable the register button
