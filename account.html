@@ -5,23 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Airline Management 2025</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
-    <script>
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I",
         authDomain: "airline-management-2025.firebaseapp.com",
         projectId: "airline-management-2025",
         storageBucket: "airline-management-2025.firebasestorage.app",
         messagingSenderId: "79795767586",
-        appId: "1:79795767586:web:657c354561e587f56bbd7b"
+        appId: "1:79795767586:web:657c354561e587f56bbd7b",
+        measurementId: "G-8QPTWZ1WYC"
       };
 
       // Initialize Firebase
-      const app = firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Get form elements
+      const registerForm = document.getElementById('register-form');
+      const emailInput = document.getElementById('register-email');
+      const passwordInput = document.getElementById('register-password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const passwordMatch = document.getElementById('password-match');
+      const passwordMismatch = document.getElementById('password-mismatch');
+      const registerButton = document.querySelector('#register-form button[type="submit"]');
+      let passwordsAreMatching = false;
+
+      function checkPassword() {
+          if (passwordInput.value === confirmPasswordInput.value) {
+              passwordMatch.style.display = 'block';
+              passwordMismatch.style.display = 'none';
+              passwordsAreMatching = true;
+              registerButton.disabled = false;
+          } else {
+              passwordMatch.style.display = 'none';
+              passwordMismatch.style.display = 'block';
+              passwordsAreMatching = false;
+              registerButton.disabled = true;
+          }
+      }
+
+      async function registerUser(event) {
+          event.preventDefault();
+          if (!passwordsAreMatching) {
+              alert('Passwords do not match. Please ensure they are the same.');
+              return;
+          }
+          if (registerButton.disabled) {
+              alert('The Register button is still disabled. Please ensure passwords match.');
+              return;
+          }
+          try {
+              const userCredential = await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+              console.log('Registration successful!', userCredential.user);
+              window.location.href = 'login.html';
+          } catch (error) {
+              console.error('Registration failed:', error.message);
+              alert('Registration failed: ' + error.message);
+          }
+      }
+
+      passwordInput.addEventListener('keyup', checkPassword);
+      confirmPasswordInput.addEventListener('keyup', checkPassword);
+      registerForm.addEventListener('submit', registerUser);
+      checkPassword();
     </script>
 </head>
 <body>
@@ -47,56 +100,5 @@
         <p>Already have an account? <a href="login.html">Login</a></p>
         <p><a href="index.html">Go back to the main page</a></p>
     </div>
-
-    <script>
-        const auth = firebase.auth();
-        const registerForm = document.getElementById('register-form');
-        const emailInput = document.getElementById('register-email');
-        const passwordInput = document.getElementById('register-password');
-        const confirmPasswordInput = document.getElementById('confirm-password');
-        const passwordMatch = document.getElementById('password-match');
-        const passwordMismatch = document.getElementById('password-mismatch');
-        const registerButton = document.querySelector('#register-form button[type="submit"]');
-        let passwordsAreMatching = false;
-
-        function checkPassword() {
-            if (passwordInput.value === confirmPasswordInput.value) {
-                passwordMatch.style.display = 'block';
-                passwordMismatch.style.display = 'none';
-                passwordsAreMatching = true;
-                registerButton.disabled = false;
-            } else {
-                passwordMatch.style.display = 'none';
-                passwordMismatch.style.display = 'block';
-                passwordsAreMatching = false;
-                registerButton.disabled = true;
-            }
-        }
-
-        async function registerUser(event) {
-            event.preventDefault();
-            if (!passwordsAreMatching) {
-                alert('Passwords do not match. Please ensure they are the same.');
-                return;
-            }
-            if (registerButton.disabled) {
-                alert('The Register button is still disabled. Please ensure passwords match.');
-                return;
-            }
-            try {
-                const userCredential = await auth.createUserWithEmailAndPassword(emailInput.value, passwordInput.value);
-                console.log('Registration successful!', userCredential.user);
-                window.location.href = 'login.html';
-            } catch (error) {
-                console.error('Registration failed:', error.message);
-                alert('Registration failed: ' + error.message);
-            }
-        }
-
-        passwordInput.addEventListener('keyup', checkPassword);
-        confirmPasswordInput.addEventListener('keyup', checkPassword);
-        registerForm.addEventListener('submit', registerUser);
-        checkPassword();
-    </script>
 </body>
 </html>
