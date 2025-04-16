@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Successful</title>
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Successful</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-eYiy+arzc6Yw1oPtWGBbjzQiKnWzidRjo/6S 8LnczAKQ1h5yr2fKtS8JXWCN5lW4BvpiYhho/cnoKGTKoFZ7hk=="
@@ -24,14 +20,15 @@
     <div id="game-map" style="width: 100%; height: 500px; border: 1px solid #ccc;"></div>
 
     <p><a href="index.html">Go to the main page</a> (This will eventually be your game)</p>
+
+    <script>
+      // Initialize the map
+      const map = L.map('game-map').setView([0, 0], 2); // Center at latitude 0, longitude 0, with zoom level 2
+
+      // Add a tile layer (using OpenStreetMap)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+    </script>
 </body>
-<script>
-  // Initialize the map
-  const map = L.map('game-map').setView([0, 0], 2); // Center at latitude 0, longitude 0, with zoom level 2
-
-  // Add a tile layer (using OpenStreetMap)
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-</script>
-
+</html>
