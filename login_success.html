@@ -2,81 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, minimum-scale=0.5, user-scalable=yes">
     <title>Airline Management 2025</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Prevent scrolling of the main body */
-        }
-        .header {
-            background-color: #f0f0f0; /* Example header background */
-            color: #333;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed; /* Stick to the top */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100; /* Ensure it's above other content */
-        }
-        .account-info, .points-info {
-            display: flex;
-            gap: 10px;
-        }
-        .map-container {
-            height: calc(100% - 50px); /* Adjust height based on header height */
-            margin-top: 50px; /* Make space for the fixed header */
-            width: 100%;
-            background-color: #e0e0e0; /* Placeholder for map background */
-            display: flex;
-            justify-content: center; /* Center the image horizontally */
-            align-items: center; /* Center the image vertically */
-        }
-        .map-container img {
-            max-width: 100%; /* Ensure image doesn't exceed container width */
-            max-height: 100%; /* Ensure image doesn't exceed container height */
-            object-fit: contain; /* Preserve aspect ratio and fit within container */
-        }
-        .section {
-            width: 80%; /* Adjust as needed */
-            max-width: 600px; /* Limit the width */
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="account-info">
                 <span>ACCOUNT</span>
-                <span>$10,184,023</span>
-            </div>
-            <div class="points-info">
-                <span>POINTS</span>
-                <span>24</span>
-            </div>
-            <div>
-                <img src="settings_icon.png" alt="Settings" height="20">
+                <span>$3,000,000</span>
             </div>
         </div>
 
         <div class="map-container">
-            <img src="images/map.jpg" alt="World map">
+            <img src="images/map.jpg" alt="World map" class="map-image">
         </div>
 
-        <div class="section">
-            <h3>Future stuff</h3>
+        <div class="footer">
+            <p>Future stuff</p>
         </div>
-
-        <a href="index.html">Go to main page</a>
     </div>
 </body>
 </html>
