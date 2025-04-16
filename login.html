@@ -31,6 +31,7 @@
       const loginForm = document.getElementById('login-form');
       const emailInput = document.getElementById('login-email');
       const passwordInput = document.getElementById('login-password');
+      const errorMessageDisplay = document.getElementById('error-message');
 
       async function loginUser(event) {
           event.preventDefault(); // Prevent default form submission
@@ -51,4 +52,33 @@
               } else if (error.code === 'auth/user-not-found') {
                   errorMessage += 'User not found.';
               } else {
-                  errorMessage +=
+                  errorMessage += error.message;
+              }
+              errorMessageDisplay.textContent = errorMessage;
+          } finally {
+              loginForm.reset(); // Clear the form
+          }
+      }
+
+      // Event listener for form submission
+      loginForm.addEventListener('submit', loginUser);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Login to Airline Management 2025</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p id="error-message" class="error"></p>
+    </div>
+</body>
+</html>
