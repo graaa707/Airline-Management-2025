@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Airline Management 2025</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
-    <script>
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I",
         authDomain: "airline-management-2025.firebaseapp.com",
@@ -20,59 +23,32 @@
       };
 
       // Initialize Firebase
-      const app = firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
-    </script>
-</head>
-<body>
-    <div class="account-container">
-        <h1>Get Right Back In!!</h1>
-        <form id="login-form">
-            <div class="input-group">
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" name="login-email" required>
-            </div>
-            <div class="input-group">
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" name="login-password" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="account.html">Register here</a></p>
-        <p><a href="index.html">Go back to the main page</a></p>
-    </div>
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-    <script>
-        // Get Firebase auth instance
-        const auth = firebase.auth();
+      // Get form elements
+      const loginForm = document.getElementById('login-form');
+      const emailInput = document.getElementById('login-email');
+      const passwordInput = document.getElementById('login-password');
 
-        // Get form elements
-        const loginForm = document.getElementById('login-form');
-        const emailInput = document.getElementById('login-email');
-        const passwordInput = document.getElementById('login-password');
+      async function loginUser(event) {
+          event.preventDefault(); // Prevent default form submission
 
-        async function loginUser(event) {
-            event.preventDefault(); // Prevent default form submission
+          const email = emailInput.value;
+          const password = passwordInput.value;
 
-            const email = emailInput.value;
-            const password = passwordInput.value;
-
-            try {
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                console.log('Login successful!', user);
-                // Redirect to the main game page
-                window.location.href = 'login_success.html';
-                // Here you would also load the user's saved game data from Firestore
-            } catch (error) {
-                console.error('Login failed:', error.message);
-                alert('Login failed: ' + error.message);
-                // Optionally display a more specific error message to the user
-            }
-        }
-
-        loginForm.addEventListener('submit', loginUser);
-    </script>
-</body>
-</html>
+          try {
+              const userCredential = await signInWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              console.log('Login successful!', user);
+              window.location.href = 'login_success.html';
+          } catch (error) {
+              console.error('Login failed:', error.message);
+              let errorMessage = 'Login failed: ';
+              if (error.code === 'auth/wrong-password') {
+                  errorMessage += 'Invalid password.';
+              } else if (error.code === 'auth/user-not-found') {
+                  errorMessage += 'User not found.';
+              } else {
+                  errorMessage +=
