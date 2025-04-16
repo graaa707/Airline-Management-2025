@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
     <script>
       const firebaseConfig = {
-        apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I",
+        apiKey: "AIzaSyBXjX_FpSu-6mGvmimy7PRvwez-jloj05I"",
         authDomain: "airline-management-2025.firebaseapp.com",
         projectId: "airline-management-2025",
         storageBucket: "airline-management-2025.firebasestorage.app",
@@ -85,6 +85,12 @@
                 return; // Stop registration if passwords don't match
             }
 
+            // Double-check if the button is still disabled for some reason
+            if (registerButton.disabled) {
+                alert('The Register button is still disabled. Please ensure passwords match.');
+                return;
+            }
+
             const email = emailInput.value;
             const password = passwordInput.value;
 
@@ -92,7 +98,7 @@
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const user = userCredential.user;
                 console.log('Registration successful!', user);
-                window.location.href = 'index.html'; // Redirect after successful registration
+                window.location.href = 'login.html'; // Redirect after successful registration
             } catch (error) {
                 console.error('Registration failed:', error.message);
                 alert('Registration failed: ' + error.message);
@@ -103,7 +109,7 @@
         confirmPasswordInput.addEventListener('keyup', checkPassword);
         registerForm.addEventListener('submit', registerUser); // Listen for form submission
 
-        // Initial check in case passwords were pre-filled (though unlikely on a new form)
+        // Initial check in case passwords were pre-filled
         checkPassword();
     </script>
 </body>
