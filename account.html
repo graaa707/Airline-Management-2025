@@ -61,20 +61,29 @@
         const passwordMismatch = document.getElementById('password-mismatch');
         const registerButton = document.querySelector('#register-form button[type="submit"]');
 
+        let passwordsAreMatching = false; // Flag to track password match
+
         function checkPassword() {
             if (passwordInput.value === confirmPasswordInput.value) {
                 passwordMatch.style.display = 'block';
                 passwordMismatch.style.display = 'none';
+                passwordsAreMatching = true;
                 registerButton.disabled = false;
             } else {
                 passwordMatch.style.display = 'none';
                 passwordMismatch.style.display = 'block';
+                passwordsAreMatching = false;
                 registerButton.disabled = true;
             }
         }
 
         async function registerUser(event) {
             event.preventDefault(); // Prevent the default form submission
+
+            if (!passwordsAreMatching) {
+                alert('Passwords do not match. Please ensure they are the same.');
+                return; // Stop registration if passwords don't match
+            }
 
             const email = emailInput.value;
             const password = passwordInput.value;
@@ -83,23 +92,19 @@
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const user = userCredential.user;
                 console.log('Registration successful!', user);
-                // Optionally, redirect the user to the game page or a success message
-                window.location.href = 'index.html'; // Redirect to the main game page after registration
-                // You might want to store additional user data in Firestore here later
+                window.location.href = 'login.html'; // Redirect after successful registration
             } catch (error) {
                 console.error('Registration failed:', error.message);
-                // Display an error message to the user
                 alert('Registration failed: ' + error.message);
             }
         }
 
         passwordInput.addEventListener('keyup', checkPassword);
         confirmPasswordInput.addEventListener('keyup', checkPassword);
-        confirmPasswordInput.addEventListener('blur', checkPassword); // Added blur event listener
-        registerForm.addEventListener('submit', registerUser);
+        registerForm.addEventListener('submit', registerUser); // Listen for form submission
 
-        // Initially disable the register button
-        registerButton.disabled = true;
+        // Initial check in case passwords were pre-filled (though unlikely on a new form)
+        checkPassword();
     </script>
 </body>
 </html>
